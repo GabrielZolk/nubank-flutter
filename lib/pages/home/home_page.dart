@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nubank_flutter/pages/home/widgets/menu_app.dart';
 import 'package:nubank_flutter/pages/home/widgets/my_app_bar.dart';
 import 'package:nubank_flutter/pages/home/widgets/my_dots_app.dart';
 import 'package:nubank_flutter/pages/home/widgets/page_view_app.dart';
@@ -12,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   late bool _showMenu;
   late int _currentIndex;
   double xPosition = 0;
-  late double _yPosition;
+  double _yPosition = 0;
 
 
   @override
@@ -41,6 +42,10 @@ class _HomePageState extends State<HomePage> {
                   _yPosition = _showMenu ? _screenHeight * .75 : _screenHeight * .25;
                 });
               },
+            ),
+            MenuApp(
+              top: _screenHeight * .20,
+              showMenu: _showMenu,
             ),
             PageViewApp(
               showMenu: _showMenu,
@@ -76,6 +81,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             MyDotApp(
+              showMenu: _showMenu,
                 top: _screenHeight * .70,
               currentIndex: _currentIndex,
             )
