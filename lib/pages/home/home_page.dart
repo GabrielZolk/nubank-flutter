@@ -11,6 +11,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late bool _showMenu;
   late int _currentIndex;
+  double xPosition = 0;
+  late double _yPosition;
+
 
   @override
   void initState() {
@@ -22,6 +25,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
+    if (_yPosition == null) {
+    _yPosition = _screenHeight * .24;  
+    }
     return Scaffold(
         backgroundColor: Colors.purple[800],
         body: Stack(
@@ -32,20 +38,46 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 setState(() {
                   _showMenu = !_showMenu;
+                  _yPosition = _showMenu ? _screenHeight * .75 : _screenHeight * .25;
                 });
               },
             ),
             PageViewApp(
-              top: _screenHeight * .25,
+              showMenu: _showMenu,
+              top: _yPosition, // !_showMenu ? _screenHeight * .25 : _screenHeight * .76,
               onChanged: (index){
                 setState(() {
                   _currentIndex = index;
                 });
               },
+              onPanUpdate: (details) {
+                double middlePosition =  _screenHeight * .76 - _screenHeight * .25;
+                middlePosition = middlePosition / 2;
+                setState(() {
+                  _yPosition += details.delta.dy;
+
+                  _yPosition = _yPosition < _screenHeight * .25 ? _screenHeight * .25 : _yPosition;
+                  _yPosition = _yPosition > _screenHeight * .76 ? _screenHeight * .76 : _yPosition;
+
+                  if (_yPosition != _screenHeight * .76 && details.delta.dy > 0) {
+                  _yPosition = _yPosition > _screenHeight * .25 + middlePosition ? _screenHeight * .76 : _yPosition;
+                  }
+
+                  if (_yPosition != _screenHeight * .25 && details.delta.dy < 0) {
+                  _yPosition = _yPosition < _screenHeight * .76 - middlePosition ? _screenHeight * .25 : _yPosition;
+                  }
+
+                  if (_yPosition == _screenHeight * .76) {
+                    _showMenu = true;
+                  } else if (_yPosition == _screenHeight * .25) {
+                    _showMenu = false;
+                  }
+                });
+              },
             ),
-            Positioned(
+            MyDotApp(
                 top: _screenHeight * .70,
-              child: MyDotApp(currentIndex: _currentIndex,),
+              currentIndex: _currentIndex,
             )
           ],
         ));
