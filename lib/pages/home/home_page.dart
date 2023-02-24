@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nubank_flutter/pages/home/widgets/item_menu_bottom.dart';
 import 'package:nubank_flutter/pages/home/widgets/menu_app.dart';
 import 'package:nubank_flutter/pages/home/widgets/my_app_bar.dart';
 import 'package:nubank_flutter/pages/home/widgets/my_dots_app.dart';
@@ -15,7 +16,6 @@ class _HomePageState extends State<HomePage> {
   double xPosition = 0;
   double _yPosition = 0;
 
-
   @override
   void initState() {
     super.initState();
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
     if (_yPosition == null) {
-    _yPosition = _screenHeight * .24;  
+      _yPosition = _screenHeight * .24;
     }
     return Scaffold(
         backgroundColor: Colors.purple[800],
@@ -39,7 +39,8 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 setState(() {
                   _showMenu = !_showMenu;
-                  _yPosition = _showMenu ? _screenHeight * .75 : _screenHeight * .25;
+                  _yPosition =
+                      _showMenu ? _screenHeight * .75 : _screenHeight * .25;
                 });
               },
             ),
@@ -49,27 +50,41 @@ class _HomePageState extends State<HomePage> {
             ),
             PageViewApp(
               showMenu: _showMenu,
-              top: _yPosition, // !_showMenu ? _screenHeight * .25 : _screenHeight * .76,
-              onChanged: (index){
+              top:
+                  _yPosition, // !_showMenu ? _screenHeight * .25 : _screenHeight * .76,
+              onChanged: (index) {
                 setState(() {
                   _currentIndex = index;
                 });
               },
               onPanUpdate: (details) {
-                double middlePosition =  _screenHeight * .76 - _screenHeight * .25;
+                double middlePosition =
+                    _screenHeight * .76 - _screenHeight * .25;
                 middlePosition = middlePosition / 2;
                 setState(() {
                   _yPosition += details.delta.dy;
 
-                  _yPosition = _yPosition < _screenHeight * .25 ? _screenHeight * .25 : _yPosition;
-                  _yPosition = _yPosition > _screenHeight * .76 ? _screenHeight * .76 : _yPosition;
+                  _yPosition = _yPosition < _screenHeight * .25
+                      ? _screenHeight * .25
+                      : _yPosition;
+                  _yPosition = _yPosition > _screenHeight * .76
+                      ? _screenHeight * .76
+                      : _yPosition;
 
-                  if (_yPosition != _screenHeight * .76 && details.delta.dy > 0) {
-                  _yPosition = _yPosition > _screenHeight * .25 + middlePosition ? _screenHeight * .76 : _yPosition;
+                  if (_yPosition != _screenHeight * .76 &&
+                      details.delta.dy > 0) {
+                    _yPosition =
+                        _yPosition > _screenHeight * .25 + middlePosition
+                            ? _screenHeight * .76
+                            : _yPosition;
                   }
 
-                  if (_yPosition != _screenHeight * .25 && details.delta.dy < 0) {
-                  _yPosition = _yPosition < _screenHeight * .76 - middlePosition ? _screenHeight * .25 : _yPosition;
+                  if (_yPosition != _screenHeight * .25 &&
+                      details.delta.dy < 0) {
+                    _yPosition =
+                        _yPosition < _screenHeight * .76 - middlePosition
+                            ? _screenHeight * .25
+                            : _yPosition;
                   }
 
                   if (_yPosition == _screenHeight * .76) {
@@ -82,8 +97,67 @@ class _HomePageState extends State<HomePage> {
             ),
             MyDotApp(
               showMenu: _showMenu,
-                top: _screenHeight * .70,
+              top: _screenHeight * .70,
               currentIndex: _currentIndex,
+            ),
+            AnimatedPositioned(
+              duration: Duration(milliseconds: 200),
+              bottom:
+                  !_showMenu ? 20 + MediaQuery.of(context).padding.bottom : 0,
+              left: 0,
+              right: 0,
+              height: _screenHeight * 0.14,
+              child: IgnorePointer(
+                ignoring: _showMenu,
+                child: AnimatedOpacity(
+                  duration: Duration(milliseconds: 200),
+                  opacity: !_showMenu ? 1 : 0,
+                  child: Container(
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        ItemMenuBottom(
+                          icon: Icons.person_add,
+                          text: 'indicar amigos',
+                        ),
+                        ItemMenuBottom(
+                          icon: Icons.phone_android,
+                          text: 'recarga de celular',
+                        ),
+                        ItemMenuBottom(
+                          icon: Icons.chat,
+                          text: 'cobrar',
+                        ),
+                        ItemMenuBottom(
+                          icon: Icons.monetization_on,
+                          text: 'empréstimos',
+                        ),
+                        ItemMenuBottom(
+                          icon: Icons.move_to_inbox,
+                          text: 'depositar',
+                        ),
+                        ItemMenuBottom(
+                          icon: Icons.mobile_screen_share,
+                          text: 'transferir',
+                        ),
+                        ItemMenuBottom(
+                          icon: Icons.format_align_center,
+                          text: 'ajustar limite',
+                        ),
+                        ItemMenuBottom(
+                          icon: Icons.barcode_reader,
+                          text: 'pagar',
+                        ),
+                        ItemMenuBottom(
+                          icon: Icons.lock_open,
+                          text: 'bloquear cartão',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             )
           ],
         ));

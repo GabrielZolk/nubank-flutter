@@ -18,49 +18,50 @@ class MenuApp extends StatelessWidget {
       left: 0,
       right: 0,
       child: AnimatedOpacity(
-        duration: Duration(milliseconds: 200),
+        duration: Duration(milliseconds: 150),
         opacity: showMenu ? 1 : 0,
         child: Container(
           height: MediaQuery.of(context).size.height * 0.55,
-          child: Column(
-            children: <Widget>[
-              Image.network(
-                'https://www.pngmart.com/files/10/Qr-Code-PNG-Transparent-Image.png',
-                height: 120,
-                color: Colors.white,
-              ),
-              Text.rich(
-                TextSpan(
-                  text: 'Banco 260 - Nu Pagamentos S.A',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: <Widget>[
+                Image.network(
+                  'https://www.pngmart.com/files/10/Qr-Code-PNG-Transparent-Image.png',
+                  height: 120,
+                  color: Colors.white,
                 ),
-              ),
-              SizedBox(
-                height: 6,
-              ),
-              Text.rich(
-                TextSpan(
-                  text: 'Agência 0001',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                Text.rich(
+                  TextSpan(
+                    text: 'Banco 260 - Nu Pagamentos S.A',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 6,
-              ),
-              Text.rich(
-                TextSpan(
-                  text: 'Conta 9623198-0',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                SizedBox(
+                  height: 6,
                 ),
-              ),
-              SizedBox(
-                height: 26,
-              ),
-              SingleChildScrollView(
-                child: Padding(
+                Text.rich(
+                  TextSpan(
+                    text: 'Agência 0001',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Text.rich(
+                  TextSpan(
+                    text: 'Conta 9623198-0',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 26,
+                ),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: <Widget>[
@@ -88,27 +89,27 @@ class MenuApp extends StatelessWidget {
                         icon: Icons.phone_android,
                         text: 'Configurações do app',
                       ),
-                      //         SizedBox(
-                      //   height: 26,
-                      // ),
-                      //         Container(
-                      //           height: 35,
-                      //           decoration: BoxDecoration(
-                      //             border: Border.all(width: 0.7, color: Colors.white54),
-                      //           ),
-                      //           child: ElevatedButton(
-                      //                   style: ElevatedButton.styleFrom(
-                      //                     primary: Colors.purple[800],
-                      //                     elevation: 0,
-                      //                   ),
-                      //                   child: Text('SAIR DO APP', style: TextStyle(fontSize: 12),),
-                      //                   onPressed: () {}),
-                      //         ),
+                              SizedBox(
+                        height: 26,
+                      ),
+                              Container(
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 0.7, color: Colors.white54),
+                                ),
+                                child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.purple[800],
+                                          elevation: 0,
+                                        ),
+                                        child: Text('SAIR DO APP', style: TextStyle(fontSize: 12),),
+                                        onPressed: () {}),
+                              ),
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
