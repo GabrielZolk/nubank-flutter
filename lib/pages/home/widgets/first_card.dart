@@ -20,6 +20,7 @@ class FirstCard extends StatelessWidget {
                   Expanded(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(20),
@@ -89,14 +90,15 @@ class FirstCard extends StatelessWidget {
                                 ),
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                   fontSize: 14,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      )
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                     ],
                   )),
                   Padding(
@@ -152,7 +154,7 @@ class FirstCard extends StatelessWidget {
                       child: Text(
                         'Compra mais recente em Super Mercado no valor de R\$ 30,00 sábado ',
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 16,
                         ),
                       ),

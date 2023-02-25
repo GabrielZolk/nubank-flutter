@@ -93,7 +93,7 @@ class MenuApp extends StatelessWidget {
                         height: 26,
                       ),
                               Container(
-                                height: 35,
+                                height: 42,
                                 decoration: BoxDecoration(
                                   border: Border.all(width: 0.7, color: Colors.white54),
                                 ),
@@ -102,7 +102,7 @@ class MenuApp extends StatelessWidget {
                                           primary: Colors.purple[800],
                                           elevation: 0,
                                         ),
-                                        child: Text('SAIR DO APP', style: TextStyle(fontSize: 12),),
+                                        child: Text('SAIR DO APP', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
                                         onPressed: () {}),
                               ),
                     ],
